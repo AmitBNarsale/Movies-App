@@ -1,0 +1,55 @@
+<div class="movie">
+  <button class="back-btn" (click)="goBack()">
+    <fa-icon [icon]="backIcon" size="2x"></fa-icon>
+  </button>
+  <ng-container *ngIf="!isLoading">
+    <div class="backdrop" [ngStyle]="{'background': 'url(' + backdropPath + ')'}"></div>
+    <div class="flex-row gap2x">
+      <img class="movie__poster" [src]="baseUrl + movieData?.poster_path" alt={{movieData?.title}}>
+      <div class="movie__details flex-column gap">
+        <h1 class="title">{{movieData?.title}} ({{movieData.release_date | slice:0:4}})</h1>
+        <span class="info">{{movieData?.release_date}} • {{runtime}}</span>
+        <div class="info">
+          <ng-container *ngFor="let item of movieData?.genres">
+            <span class="pill">{{item?.name}}</span>
+          </ng-container>
+        </div>
+        <p class="desc">{{movieData?.overview}}</p>
+        <h4 *ngIf="movieData?.budget != 0">Budget: {{movieData?.budget}}</h4>
+        <h4 *ngIf="movieData?.revenue != 0">Revenue Generated:  {{movieData?.revenue}}</h4>
+      </div>
+    </div>
+    <div class="movie__trailer">
+      <button class="flex-row gap" *ngIf="hasTrailer" (click)="openModal()"><fa-icon [icon]="playIcon"></fa-icon>Play Trailer</button>
+      <a *ngIf="movieData?.homepage" [href]="movieData?.homepage" target="_blank">Checkout Official Website</a>
+      <div class="modal" *ngIf='isModalVisible'>
+        <div class="modal-backdrop"></div>
+        <div class="modal-dialog">
+          <div class="modal-header">
+            <h1>Watch {{movieData?.title}}</h1>
+            <button class="close-modal" (click)="closeModal()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <iframe
+              [src]="getYTUrl()"
+              [title]="YTTitle"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+
+  <ng-container *ngIf="isLoading">
+    <div class="loader">
+      <video loop autoplay>
+        <source src="../../../assets/images/spinner.webm" type="video/webm">
+      </video>
+      <h4>Please Wait Loading</h4>
+    </div>
+  </ng-container>
+</div>

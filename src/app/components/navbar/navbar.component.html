@@ -1,0 +1,15 @@
+<nav class="navbar" [ngClass]="{'collapsed': !isCollapsed}">
+  <div class="logo flex-row-all-center" routerLink="/home">
+    <fa-icon [icon]="logoIcon"></fa-icon>
+    Movies App
+  </div>
+
+  <div class="search-bar flex-row-all-center">
+    <fa-icon [icon]="searchIcon"></fa-icon>
+    <input type="text" class="search-bar--input" placeholder="Search for Movies" [(ngModel)]="movieName"  (keyup.enter)="searchMovie(movieName)">
+  </div>
+
+  <div class="credits flex-column">
+    <span>Amit | Anushka | Vighnesh</span>
+  </div>
+</nav>

@@ -1,0 +1,119 @@
+@import "../../../assets/variables";
+@import "../../../assets/sudo";
+
+.card {
+  cursor: pointer;
+  position: relative;
+  &__poster {
+    height: 250px;
+    max-width: 170px;
+    object-fit: cover;
+    background: url('../../../assets/images/movie-poster-default.jpeg') center center no-repeat;
+    min-height: 250px;
+    min-width: 170px;
+    background-size: cover;
+  }
+  &__title {
+    font-size: $font-size-base;
+    font-weight: $font-weight600;
+    margin-bottom: $gutter1_2;
+  }
+  &__type {
+    @include sudo-fill(absolute, -12px, unset, unset, 27%);
+    border-radius: $border-radius-medium;
+    font-size: $font-size-default;
+    padding: $gutter1_4 $gutter1_2;
+
+    &--A {
+      color: $white;
+      background-color: magenta;
+    }
+
+    &--B {
+      color: $white;
+      background-color: $pink;
+    }
+
+    &--C {
+      color: $white;
+      background-color: blueviolet;
+    }
+
+    &--D {
+      color: $white;
+      background-color: $brownVariant;
+    }
+
+    &--E {
+      color: $white;
+      background-color: dodgerblue;
+    }
+  }
+}
+
+.card__sideables {
+  visibility: hidden;
+  opacity: 0;
+  gap: $gutter;
+  @include sudo-fill(absolute, $gutter1_2, $gutter1_2, unset, unset);
+  transition: $transition-in-out;
+
+  button {
+    color: $white;
+    transition: $transition-in-out;
+
+    &:first-child:hover, &.in-watch-later {
+      color: $pink;
+      transition: $transition-in-out;
+    }
+    &:nth-child(2):hover, &.in-favourites {
+      color: gold;
+      transition: $transition-in-out;
+    }
+
+    &.in-watch-later {
+
+    }
+  }
+}
+
+.card:hover .card__sideables {
+  opacity: 1;
+  visibility: visible;
+  transition: $transition-in-out;
+}
+
+
+.sk{
+  position: relative;
+  gap: $gutter1_2;
+  transition: all 200ms ease-in-out;
+
+  & div {
+    overflow: hidden;
+    position: relative;
+    background-color: rgba(120, 120, 120, 0.4);
+
+    &:after {
+      @include sudo-fill(absolute, 0, 0, 0, 0);
+      transform: translateX(-100%);
+      background: linear-gradient(90deg, transparentize($white, 1) 0, transparentize($white, 0.8) 20%, transparentize($white, 0.5) 60%, transparentize($white, 1));
+      animation: shimmer 2s infinite;
+    }
+  }
+
+  &__img {
+    height: 250px;
+    width: 100%;
+  }
+
+  &__heading {
+    height: 6px;
+    width: calc(100% - 20px);
+  }
+
+  &__desc {
+    height: 5px;
+    width: calc(100% - 50px);
+  }
+}
